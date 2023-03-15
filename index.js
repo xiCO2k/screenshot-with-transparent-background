@@ -26,7 +26,7 @@ require('yargs') // eslint-disable-line
 
 async function takeScreenshot(url, image) {
 
-  const chromiumBinPath = '/usr/bin/chromium-browser';
+  const chromiumBinPath = '/opt/homebrew/bin/chromium';
   const browser = await puppeteer.launch({
     args: [
         '--no-sandbox',
@@ -42,6 +42,10 @@ async function takeScreenshot(url, image) {
     executablePath: chromiumBinPath,
   });
   const page = await browser.newPage();
+  await page.setViewport({
+    width: 1440,
+    height: 1349
+});
   await page.goto(url);
   await page.screenshot({
       path: image,
